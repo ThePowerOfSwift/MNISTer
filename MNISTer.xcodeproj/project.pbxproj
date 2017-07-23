@@ -12,6 +12,8 @@
 		B4080F461EFF37DE00B9F21F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4080F441EFF37DE00B9F21F /* Main.storyboard */; };
 		B4080F481EFF37DE00B9F21F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4080F471EFF37DE00B9F21F /* Assets.xcassets */; };
 		B4080F4B1EFF37DE00B9F21F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4080F491EFF37DE00B9F21F /* LaunchScreen.storyboard */; };
+		B40C94E71F255B41008F545F /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40C94E61F255B41008F545F /* WordsViewController.swift */; };
+		B40C94E91F255B93008F545F /* CoreImageVideoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */; };
 		B43CE6821EFF3DFC007A1B37 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */; };
 		B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */; };
 		B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */; };
@@ -25,6 +27,8 @@
 		B4080F471EFF37DE00B9F21F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4080F4A1EFF37DE00B9F21F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4080F4C1EFF37DE00B9F21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B40C94E61F255B41008F545F /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewController.swift; sourceTree = "<group>"; };
+		B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageVideoFilter.swift; path = ../../../../Desktop/CoreImageVideoFilter.swift; sourceTree = "<group>"; };
 		B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EMNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNISTClassifier.mlmodel; sourceTree = "<group>"; };
@@ -62,7 +66,9 @@
 			children = (
 				B4080F521EFF3B6200B9F21F /* Supporting */,
 				B4080F401EFF37DE00B9F21F /* AppDelegate.swift */,
+				B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */,
 				B4080F421EFF37DE00B9F21F /* ViewController.swift */,
+				B40C94E61F255B41008F545F /* WordsViewController.swift */,
 				B4080F441EFF37DE00B9F21F /* Main.storyboard */,
 				B4080F4C1EFF37DE00B9F21F /* Info.plist */,
 				B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */,
@@ -152,11 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B40C94E71F255B41008F545F /* WordsViewController.swift in Sources */,
 				B4080F431EFF37DE00B9F21F /* ViewController.swift in Sources */,
 				B43CE6821EFF3DFC007A1B37 /* UIImage+Resize.swift in Sources */,
 				B4080F411EFF37DE00B9F21F /* AppDelegate.swift in Sources */,
 				B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */,
 				B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */,
+				B40C94E91F255B93008F545F /* CoreImageVideoFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RNSMW8KCN7;
+				DEVELOPMENT_TEAM = 9W2C69WDZE;
 				INFOPLIST_FILE = MNISTer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mcginty.will.MNISTer;
@@ -303,7 +311,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RNSMW8KCN7;
+				DEVELOPMENT_TEAM = 9W2C69WDZE;
 				INFOPLIST_FILE = MNISTer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mcginty.will.MNISTer;

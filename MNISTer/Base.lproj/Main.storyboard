@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VEM-Sq-oRA">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Character-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MNISTer" customModuleProvider="target" sceneMemberID="viewController">
@@ -41,7 +41,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write Something" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-Ea-yuO">
-                                <rect key="frame" x="105" y="566" width="166.5" height="25.5"/>
+                                <rect key="frame" x="105" y="420.5" width="166.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="textColor" red="0.001160401247316761" green="0.92935490608215332" blue="0.0018002973984949794" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -64,19 +64,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MNIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72s-x1-Zyq">
-                                <rect key="frame" x="16" y="638" width="52" height="21"/>
+                                <rect key="frame" x="16" y="589" width="52" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMNIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYn-n4-Qg3">
-                                <rect key="frame" x="133" y="638" width="61.5" height="21"/>
+                                <rect key="frame" x="133" y="589" width="61.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0n8-JU-YLT">
-                                <rect key="frame" x="76" y="633" width="51" height="31"/>
+                                <rect key="frame" x="76" y="584" width="51" height="31"/>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,7 +84,6 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IYn-n4-Qg3" secondAttribute="trailing" constant="20" symbolic="YES" id="01W-pg-Q5w"/>
                             <constraint firstItem="NYP-oQ-63V" firstAttribute="leading" secondItem="kkx-nF-TL0" secondAttribute="leading" id="0Xe-ig-mJf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="72s-x1-Zyq" secondAttribute="bottom" constant="8" id="5hG-IH-8vE"/>
-                            <constraint firstItem="Koz-Ea-yuO" firstAttribute="top" secondItem="KEA-iE-FgZ" secondAttribute="bottom" constant="8" id="6nc-7A-gzQ"/>
                             <constraint firstItem="uN7-MV-TGn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="83L-Mk-I6r"/>
                             <constraint firstItem="IYn-n4-Qg3" firstAttribute="leading" secondItem="0n8-JU-YLT" secondAttribute="trailing" constant="8" id="A5Z-tI-Eji"/>
                             <constraint firstItem="0n8-JU-YLT" firstAttribute="leading" secondItem="72s-x1-Zyq" secondAttribute="trailing" constant="8" id="Aoh-G6-qQZ"/>
@@ -94,6 +93,7 @@
                             <constraint firstItem="NYP-oQ-63V" firstAttribute="top" secondItem="kkx-nF-TL0" secondAttribute="top" id="IQ8-Sb-7h7"/>
                             <constraint firstItem="NYP-oQ-63V" firstAttribute="bottom" secondItem="kkx-nF-TL0" secondAttribute="bottom" id="Jbo-9R-MWq"/>
                             <constraint firstItem="KEA-iE-FgZ" firstAttribute="top" secondItem="kkx-nF-TL0" secondAttribute="bottom" constant="8" id="O6U-3X-pBX"/>
+                            <constraint firstItem="Koz-Ea-yuO" firstAttribute="bottom" secondItem="wJU-UN-cka" secondAttribute="bottom" constant="-4" id="RWR-ce-omK"/>
                             <constraint firstItem="kkx-nF-TL0" firstAttribute="top" secondItem="uN7-MV-TGn" secondAttribute="bottom" constant="8" id="Rwq-MM-cqy"/>
                             <constraint firstItem="0n8-JU-YLT" firstAttribute="centerY" secondItem="72s-x1-Zyq" secondAttribute="centerY" id="TXN-1t-Vny"/>
                             <constraint firstItem="Koz-Ea-yuO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VD4-6m-3kM"/>
@@ -107,6 +107,7 @@
                             <constraint firstItem="wJU-UN-cka" firstAttribute="leading" secondItem="NYP-oQ-63V" secondAttribute="leading" id="x0b-CX-LzG"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Character" id="rkn-Ig-874"/>
                     <connections>
                         <outlet property="classifiedImageView" destination="KEA-iE-FgZ" id="4oF-Os-e83"/>
                         <outlet property="classifierSwitch" destination="0n8-JU-YLT" id="alD-zI-2yZ"/>
@@ -117,6 +118,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="489" y="-27"/>
+        </scene>
+        <!--Word-->
+        <scene sceneID="nSh-2N-k6L">
+            <objects>
+                <viewController id="N4c-Hg-oY0" customClass="WordsViewController" customModule="MNISTer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ei1-hg-Qwz"/>
+                        <viewControllerLayoutGuide type="bottom" id="nnT-js-gWd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="W2h-4c-0ky">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Word" id="esG-9s-Ciq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cEu-iq-9ag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="668" y="616"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="CZH-qt-i0s">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="VEM-Sq-oRA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="I9q-Da-WfG">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="jLd-D7-G8l"/>
+                        <segue destination="N4c-Hg-oY0" kind="relationship" relationship="viewControllers" id="uaw-XE-Ih4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3AU-h6-CxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-388.80000000000001" y="43.178410794602705"/>
         </scene>
     </scenes>
 </document>
