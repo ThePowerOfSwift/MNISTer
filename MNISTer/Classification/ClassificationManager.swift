@@ -12,6 +12,8 @@ import CoreImage
 
 public struct ModelInputRequirements {
     let size: CGSize
+    let grayscale: Bool = true
+    let invertColors: Bool = true
 }
 
 class ClassificationManager {
@@ -33,10 +35,15 @@ class ClassificationManager {
         //Next, we create a CIImage and apply a series of modifications.
         guard let inputImage = CIImage(image: resizedImage) else { return }
         
-        let correctedImage = inputImage
-            .oriented(forExifOrientation: 1)
-            .applyingFilter("CIColorControls", parameters: [kCIInputSaturationKey : 0, kCIInputContrastKey : 32])
-            .applyingFilter("CIColorInvert", parameters: [:])
+        var correctedImage = inputImage.oriented(forExifOrientation: 1)
+    
+        if inputRequirements.grayscale {
+            correctedImage = correctedImage.applyingFilter("CIColorControls", parameters: [kCIInputSaturationKey : 0, kCIInputContrastKey : 32])
+        }
+        
+        if inputRequirements.invertColors {
+            correctedImage = correctedImage.applyingFilter("CIColorInvert", parameters: [:])
+        }
         
         //Finally, run this request through Vision
         let handler = VNImageRequestHandler(ciImage: correctedImage)

@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import CoreML
-import ImageIO
-import CoreImage
 import Vision
 
 class ViewController: UIViewController {
@@ -28,6 +25,7 @@ class ViewController: UIViewController {
     //MARK: Classification
     lazy var mnistClassifier = ClassificationManager(model: MNISTClassifier().model, inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
     lazy var emnistClassifier = ClassificationManager(model: EMNISTClassifier().model, inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
+    var currentClassifier: ClassificationManager { return classifierSwitch.isOn ? emnistClassifier : mnistClassifier }
     
     //MARK: Drawing
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -121,10 +119,6 @@ fileprivate extension ViewController {
         
         tempImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-    }
-    
-    var currentClassifier: ClassificationManager {
-        return classifierSwitch.isOn ? emnistClassifier : mnistClassifier
     }
 }
 
