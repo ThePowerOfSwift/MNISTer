@@ -26,15 +26,8 @@ class ViewController: UIViewController {
     fileprivate var lastPoint: CGPoint?
     
     //MARK: Classification
-    lazy var mnistClassificationRequest: VNCoreMLRequest = {
-        let model = try! VNCoreMLModel(for: MNISTClassifier().model)
-        return VNCoreMLRequest(model: model, completionHandler: self.handleClassification)
-    }()
-
-    lazy var emnistClassificationRequest: VNCoreMLRequest = {
-        let model = try! VNCoreMLModel(for: EMNISTClassifier().model)
-        return VNCoreMLRequest(model: model, completionHandler: self.handleClassification)
-    }()
+    lazy var mnistClassifier = ClassificationManager(model: MNISTClassifier().model, inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
+    lazy var emnistClassifier = ClassificationManager(model: EMNISTClassifier().model, inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
     
     //MARK: Drawing
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -90,43 +83,19 @@ extension ViewController {
 fileprivate extension ViewController {
     
 	@objc func predictDigitFromDrawing() {
+        guard let image = imageView.image else { return }
         
-        //First we need to resize the image to the model's desired size (in this case 28x28 points)
-        guard let uiImage = imageView.image?.resizedImage(with: CGSize(width: 28, height: 28)) else { return }
-        
-        //Next, we'll create a CIImage and apply a series of modifications - orientation (top left is origin, desaturation, and color inversion. This resulting image will appear just above the classification).
-        guard let ciImage = CIImage(image: uiImage) else { return }
-        let correctedImage = ciImage
-			.oriented(forExifOrientation: 1)
-			.applyingFilter("CIColorControls", parameters: [
-                kCIInputSaturationKey: 0,
-                kCIInputContrastKey: 32
-                ])
-			.applyingFilter("CIColorInvert", parameters: [:])
-        DispatchQueue.main.async { self.classifiedImageView.image = UIImage(ciImage: correctedImage) }
-        
-        //Finally we'll create an image request handler wih our correct image, and attempt to perform the classification request instance variable.
-        let handler = VNImageRequestHandler(ciImage: correctedImage)
-        do {
-            //This classification request calls back to 'handleClassification' when complete
-            try handler.perform([currentClassificationRequest])
-            resultLabel.text = "..."
-        } catch {
-            print(error)
-        }
-    }
-    
-    func handleClassification(request: VNRequest, error: Error?) {
-        
-        //Ensure that we have both ClassificationObservations and that have at least 1
-        guard let observations = request.results as? [VNClassificationObservation] else { fatalError("unexpected result type from VNCoreMLRequest") }
-        guard let best = observations.first else { fatalError("can't get best result") }
-        
-        DispatchQueue.main.async {
-            if best.confidence > 0.7 {
+        resultLabel.text = "..."
+        try? currentClassifier.prediction(from: image) { classifiedImage, request, error in
+            
+            DispatchQueue.main.async { self.classifiedImageView.image = UIImage(ciImage: classifiedImage) }
+            
+            //Ensure that we have both ClassificationObservations and that have at least 1
+            guard let observations = request.results as? [VNClassificationObservation] else { fatalError("unexpected result type from VNCoreMLRequest") }
+            guard let best = observations.first else { fatalError("can't get best result") }
+            
+            DispatchQueue.main.async {
                 self.resultLabel.text = "Classification: \(best.identifier)?"
-            } else {
-                self.resultLabel.text = "???"
             }
         }
     }
@@ -154,8 +123,8 @@ fileprivate extension ViewController {
         UIGraphicsEndImageContext()
     }
     
-    var currentClassificationRequest: VNCoreMLRequest {
-        return classifierSwitch.isOn ? emnistClassificationRequest : mnistClassificationRequest
+    var currentClassifier: ClassificationManager {
+        return classifierSwitch.isOn ? emnistClassifier : mnistClassifier
     }
 }
 

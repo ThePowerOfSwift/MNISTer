@@ -131,9 +131,34 @@
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="W2h-4c-0ky">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Uk-vJ-c3o">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="438"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SLN-9f-JQf">
+                                <rect key="frame" x="0.0" y="438" width="375" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="Fs0-0N-4k0"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1Uk-vJ-c3o" secondAttribute="trailing" id="F0P-eG-DSg"/>
+                            <constraint firstItem="SLN-9f-JQf" firstAttribute="leading" secondItem="W2h-4c-0ky" secondAttribute="leading" id="GAw-mA-T7S"/>
+                            <constraint firstItem="1Uk-vJ-c3o" firstAttribute="top" secondItem="W2h-4c-0ky" secondAttribute="top" id="I7B-f7-p1o"/>
+                            <constraint firstAttribute="trailing" secondItem="SLN-9f-JQf" secondAttribute="trailing" id="WFQ-yf-N1J"/>
+                            <constraint firstItem="1Uk-vJ-c3o" firstAttribute="leading" secondItem="W2h-4c-0ky" secondAttribute="leading" id="dHX-pB-e7k"/>
+                            <constraint firstItem="nnT-js-gWd" firstAttribute="top" secondItem="SLN-9f-JQf" secondAttribute="bottom" id="osP-b2-j1p"/>
+                            <constraint firstItem="SLN-9f-JQf" firstAttribute="top" secondItem="1Uk-vJ-c3o" secondAttribute="bottom" id="vxi-Z6-iEk"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Word" id="esG-9s-Ciq"/>
+                    <connections>
+                        <outlet property="imageView" destination="SLN-9f-JQf" id="oEw-st-h9a"/>
+                        <outlet property="outputView" destination="1Uk-vJ-c3o" id="ioU-KU-AXX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEu-iq-9ag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
