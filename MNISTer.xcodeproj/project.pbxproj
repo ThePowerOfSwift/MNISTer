@@ -18,6 +18,7 @@
 		B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */; };
 		B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */; };
 		B4D71F1C1F259B8200BE9368 /* ClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D71F1B1F259B8200BE9368 /* ClassificationManager.swift */; };
+		B4D71F1E1F25A38300BE9368 /* GlyphExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D71F1D1F25A38300BE9368 /* GlyphExtractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EMNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		B4D71F1B1F259B8200BE9368 /* ClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationManager.swift; sourceTree = "<group>"; };
+		B4D71F1D1F25A38300BE9368 /* GlyphExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		B4D71F191F259AB500BE9368 /* CoreImage */ = {
 			isa = PBXGroup;
 			children = (
+				B4D71F1D1F25A38300BE9368 /* GlyphExtractor.swift */,
 			);
 			path = CoreImage;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				B4080F411EFF37DE00B9F21F /* AppDelegate.swift in Sources */,
 				B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */,
 				B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */,
+				B4D71F1E1F25A38300BE9368 /* GlyphExtractor.swift in Sources */,
 				B40C94E91F255B93008F545F /* CoreImageVideoFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
