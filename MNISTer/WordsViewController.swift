@@ -40,13 +40,13 @@ class WordsViewController: UIViewController {
                 let subFeatures = feature.subFeatures?.flatMap { $0 as? CITextFeature } ?? [CITextFeature]()
                 
                 //analyze
-                let glyphs = Array(self.glyphImages(for: subFeatures, from: image).reversed())
+                let glyphs = Array(self.glyphImages(for: subFeatures, from: image))
+                let letterboxed = glyphs.prefix(1).flatMap { $0.letterboxed }
                 
-                
-                glyphs.forEach { self.predictDigit(from: $0) }
+                letterboxed.forEach { self.predictDigit(from: $0) }
                 
                 //draw
-                for (index, subFeature) in subFeatures.enumerated() {
+                for (index, subFeature) in subFeatures.prefix(1).enumerated() {
                     resultImage = self.drawHighlightOverlay(on: resultImage, with: self.colors[index % self.colors.count],
                                                             topLeft: subFeature.topLeft, topRight: subFeature.topRight,
                                                             bottomLeft: subFeature.bottomLeft, bottomRight: subFeature.bottomRight)
@@ -76,6 +76,10 @@ fileprivate extension WordsViewController {
                 kCIInputContrastKey: 32
                 ])
             .applyingFilter("CIColorInvert", parameters: [:])
+        
+        DispatchQueue.main.async {
+            self.imageView.image = UIImage(ciImage: correctedImage)
+        }
         
         //Finally we'll create an image request handler wih our correct image, and attempt to perform the classification request instance variable.
         let handler = VNImageRequestHandler(ciImage: correctedImage)

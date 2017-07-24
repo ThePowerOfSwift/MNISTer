@@ -12,7 +12,7 @@ import CoreImage
 struct GlyphExtractor {
     
     static func glyphImages(containedIn image: UIImage) -> [UIImage] {
-        
+        return []
     }
     
 }
