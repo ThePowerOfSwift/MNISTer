@@ -13,8 +13,12 @@
 		B4080F481EFF37DE00B9F21F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4080F471EFF37DE00B9F21F /* Assets.xcassets */; };
 		B4080F4B1EFF37DE00B9F21F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4080F491EFF37DE00B9F21F /* LaunchScreen.storyboard */; };
 		B40C94E71F255B41008F545F /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40C94E61F255B41008F545F /* WordsViewController.swift */; };
-		B40C94E91F255B93008F545F /* CoreImageVideoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */; };
+		B41D41841F26B203005E2493 /* CaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41D41831F26B203005E2493 /* CaptureController.swift */; };
+		B41D41871F26C86B005E2493 /* VisionCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41D41861F26C86B005E2493 /* VisionCaptureController.swift */; };
 		B43CE6821EFF3DFC007A1B37 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */; };
+		B476BB041F26CED60025AACD /* VisionOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476BB031F26CED60025AACD /* VisionOutputFormatter.swift */; };
+		B476BB061F26D3F90025AACD /* CIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476BB051F26D3F90025AACD /* CIImage+Resize.swift */; };
+		B476BB081F26D82E0025AACD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476BB071F26D82E0025AACD /* Utilities.swift */; };
 		B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */; };
 		B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */; };
 		B4D71F1C1F259B8200BE9368 /* ClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D71F1B1F259B8200BE9368 /* ClassificationManager.swift */; };
@@ -30,8 +34,12 @@
 		B4080F4A1EFF37DE00B9F21F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4080F4C1EFF37DE00B9F21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B40C94E61F255B41008F545F /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewController.swift; sourceTree = "<group>"; };
-		B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageVideoFilter.swift; path = ../../../../Desktop/CoreImageVideoFilter.swift; sourceTree = "<group>"; };
+		B41D41831F26B203005E2493 /* CaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureController.swift; sourceTree = "<group>"; };
+		B41D41861F26C86B005E2493 /* VisionCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCaptureController.swift; sourceTree = "<group>"; };
 		B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		B476BB031F26CED60025AACD /* VisionOutputFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionOutputFormatter.swift; sourceTree = "<group>"; };
+		B476BB051F26D3F90025AACD /* CIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Resize.swift"; sourceTree = "<group>"; };
+		B476BB071F26D82E0025AACD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B4AB35741F242BC600A1AC89 /* EMNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EMNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		B4CB12641F24199A00F4985F /* MNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		B4D71F1B1F259B8200BE9368 /* ClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationManager.swift; sourceTree = "<group>"; };
@@ -68,16 +76,18 @@
 		B4080F3F1EFF37DE00B9F21F /* MNISTer */ = {
 			isa = PBXGroup;
 			children = (
+				B41D41851F26C84B005E2493 /* Capture */,
 				B4D71F1A1F259ABB00BE9368 /* Classification */,
 				B4D71F191F259AB500BE9368 /* CoreImage */,
 				B4080F521EFF3B6200B9F21F /* Supporting */,
 				B4080F401EFF37DE00B9F21F /* AppDelegate.swift */,
-				B40C94E81F255B93008F545F /* CoreImageVideoFilter.swift */,
 				B4080F421EFF37DE00B9F21F /* ViewController.swift */,
 				B40C94E61F255B41008F545F /* WordsViewController.swift */,
 				B4080F441EFF37DE00B9F21F /* Main.storyboard */,
 				B4080F4C1EFF37DE00B9F21F /* Info.plist */,
 				B43CE6811EFF3DFC007A1B37 /* UIImage+Resize.swift */,
+				B476BB051F26D3F90025AACD /* CIImage+Resize.swift */,
+				B476BB071F26D82E0025AACD /* Utilities.swift */,
 			);
 			path = MNISTer;
 			sourceTree = "<group>";
@@ -91,6 +101,16 @@
 				B4080F491EFF37DE00B9F21F /* LaunchScreen.storyboard */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		B41D41851F26C84B005E2493 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				B41D41831F26B203005E2493 /* CaptureController.swift */,
+				B41D41861F26C86B005E2493 /* VisionCaptureController.swift */,
+				B476BB031F26CED60025AACD /* VisionOutputFormatter.swift */,
+			);
+			path = Capture;
 			sourceTree = "<group>";
 		};
 		B4D71F191F259AB500BE9368 /* CoreImage */ = {
@@ -181,14 +201,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				B40C94E71F255B41008F545F /* WordsViewController.swift in Sources */,
+				B41D41871F26C86B005E2493 /* VisionCaptureController.swift in Sources */,
+				B476BB081F26D82E0025AACD /* Utilities.swift in Sources */,
+				B476BB061F26D3F90025AACD /* CIImage+Resize.swift in Sources */,
 				B4D71F1C1F259B8200BE9368 /* ClassificationManager.swift in Sources */,
 				B4080F431EFF37DE00B9F21F /* ViewController.swift in Sources */,
 				B43CE6821EFF3DFC007A1B37 /* UIImage+Resize.swift in Sources */,
 				B4080F411EFF37DE00B9F21F /* AppDelegate.swift in Sources */,
 				B4CB12651F2419FB00F4985F /* MNISTClassifier.mlmodel in Sources */,
+				B476BB041F26CED60025AACD /* VisionOutputFormatter.swift in Sources */,
 				B4AB35751F242BCA00A1AC89 /* EMNISTClassifier.mlmodel in Sources */,
 				B4D71F1E1F25A38300BE9368 /* GlyphExtractor.swift in Sources */,
-				B40C94E91F255B93008F545F /* CoreImageVideoFilter.swift in Sources */,
+				B41D41841F26B203005E2493 /* CaptureController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

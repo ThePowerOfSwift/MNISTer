@@ -8,123 +8,173 @@
 
 import UIKit
 import Vision
+import AVFoundation
 
 class WordsViewController: UIViewController {
     
-    @IBOutlet fileprivate var outputView: UIView!
-    @IBOutlet fileprivate var stackView: UIStackView!
+ let colors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple, .cyan]
+    
+    fileprivate var visionCaptureController: VisionCaptureController!
+    fileprivate var classificationManager: ClassificationManager!
+    
+    @IBOutlet fileprivate var cameraOutputView: UIView!
+    @IBOutlet fileprivate var resultsView: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    fileprivate var videoFilter: CoreImageVideoFilter!
-    fileprivate var detector: CIDetector!
+    @IBOutlet fileprivate var stackView: UIStackView!
+    @IBOutlet weak var resultLabel: UILabel!
     
-    fileprivate let colors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .cyan, .purple]
-    
-    lazy var classificationManager = ClassificationManager(model: EMNISTClassifier().model,
-                                                                inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
-    
-    lazy var emnistClassificationRequest: VNCoreMLRequest = {
-        let model = try! VNCoreMLModel(for: EMNISTClassifier().model)
-        return VNCoreMLRequest(model: model, completionHandler: self.handleClassification)
+    lazy var textDetectionRequests: [VNRequest] = {
+        let textRequest = VNDetectTextRectanglesRequest(completionHandler: self.detectTextHandler)
+        textRequest.reportCharacterBoxes = true
+        
+        return [textRequest]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        // Create the video filter
-        detector = CIDetector(ofType: CIDetectorTypeText, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
-        videoFilter = CoreImageVideoFilter(superview: outputView) { image in
-            var resultImage = image
-            let features = self.detector.features(in: image, options: [CIDetectorReturnSubFeatures:NSNumber(booleanLiteral: true)])
-            for feature in features.prefix(1).flatMap({ $0 as? CITextFeature }) {
-                let subFeatures = feature.subFeatures?.flatMap { $0 as? CITextFeature } ?? [CITextFeature]()
+        // Do any additional setup after loading the view, typically from a nib.
+        visionCaptureController = try! VisionCaptureController(superview: cameraOutputView, requests: textDetectionRequests)
+        visionCaptureController.startRunning()
+        
+        classificationManager = try! ClassificationManager(model: EMNISTClassifier().model, inputRequirements: ModelInputRequirements(size: CGSize(width: 28, height: 28)))
+    }
+    
+    func detectTextHandler(request: VNRequest, error: Error?) {
+        guard let observations = request.results else { return }
+        let result = observations.map { $0 as? VNTextObservation }
+        
+        DispatchQueue.main.async() {
+            self.resultsView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            let validResults = result.flatMap { $0 }
+            
+            //Classification
+            
+            if let input = self.visionCaptureController.capturedSnapshot?.oriented(forExifOrientation: 6), let characterBoxes = validResults.first?.characterBoxes {
+            
+                //self.stackView.subviews.forEach { $0.removeFromSuperview() }
                 
-                //analyze
-                let glyphs = Array(self.glyphImages(for: subFeatures, from: image))
-                let letterboxed = glyphs.prefix(1).flatMap { $0.letterboxed }
                 
-                letterboxed.forEach { self.predictDigit(from: $0) }
+                let gImages = self.glyphImages(for: characterBoxes, from: input)
                 
-                //draw
-                for (index, subFeature) in subFeatures.prefix(1).enumerated() {
-                    resultImage = self.drawHighlightOverlay(on: resultImage, with: self.colors[index % self.colors.count],
-                                                            topLeft: subFeature.topLeft, topRight: subFeature.topRight,
-                                                            bottomLeft: subFeature.bottomLeft, bottomRight: subFeature.bottomRight)
+                if let img = gImages.first {
+                    try? self.classificationManager.prediction(from: img, completion: { classifiedImage, request, _ in
+                        //Ensure that we have both ClassificationObservations and that have at least 1
+                        guard let observations = request.results as? [VNClassificationObservation] else { fatalError("unexpected result type from VNCoreMLRequest") }
+                        guard let best = observations.first else { fatalError("can't get best result") }
+                        
+                        DispatchQueue.main.async {
+                            self.imageView.image = UIImage(ciImage:classifiedImage)
+                            self.resultLabel.text = best.identifier + " ?"
+                        }
+                    })
                 }
+//                let imgViews: [UIImageView] = gImages.map {
+//                    let imgView = UIImageView(image: UIImage(ciImage: $0))
+//                    imgView.contentMode = .scaleAspectFit
+//
+//                    return imgView
+//                }
+//
+//
+//                imgViews.forEach { self.stackView.addArrangedSubview($0) }
+
+                
+//                let transform = CGAffineTransform(translationX: input.extent.midX, y: input.extent.midY)
+//                    .rotated(by: .pi * -0.5)
+//                    .translatedBy(x: -input.extent.midX, y: -input.extent.midY)
+               // self.imageView.image = UIImage(ciImage: input.transformed(by: transform))
+                
+                //let img = self.glyphImage(for: first.first!, from: input)
+                //self.imageView.image = UIImage(ciImage: corrected)
+                
+                //let classifiableImage = self.prepareClassifiableImage(from: input, with: rect)!
+            
+//                try? self.classificationManager.prediction(from: classifiableImage) { classifiedImage, request, error in
+//                    //Ensure that we have both ClassificationObservations and that have at least 1
+//                    guard let observations = request.results as? [VNClassificationObservation] else { fatalError("unexpected result type from VNCoreMLRequest") }
+//                    guard let best = observations.first else { fatalError("can't get best result") }
+//
+//                    DispatchQueue.main.async {
+//                        self.imageView.image = UIImage(ciImage:classifiedImage)
+//                        self.resultLabel.text = best.identifier + " ?"
+//                    }
+//                }
             }
             
-            return resultImage
+            // Word/Character highlighting in the scene
+            for observation in validResults {
+                if let boxes = observation.characterBoxes {
+                    
+                    VisionOutputFormatter.highlightWord(boundedBy: boxes, in: self.resultsView, with: .black)
+                    for (index, characterBox) in boxes.enumerated() {
+                        VisionOutputFormatter.highlightLetter(boundedBy: characterBox, in: self.resultsView,
+                                                              with: self.colors[index % self.colors.count])
+                    }
+                }
+            }
         }
-        videoFilter.startFiltering()
     }
-}
-
-//MARK: Classification
-fileprivate extension WordsViewController {
     
-    func predictDigit(from image: UIImage) {
+    public func prepareClassifiableImage(from inputImage: CIImage, with detectedRectangle: VNRectangleObservation) -> CIImage? {
+        let imageSize = inputImage.extent.size
         
-        //First we need to resize the image to the model's desired size (in this case 28x28 points)
-        guard let uiImage = image.resizedImage(with: CGSize(width: 28, height: 28)) else { return }
+        // Verify detected rectangle is valid.
+        let boundingBox = detectedRectangle.boundingBox.scaled(to: imageSize)
+        guard inputImage.extent.contains(boundingBox)
+            else { print("invalid detected rectangle"); return nil }
         
-        //Next, we'll create a CIImage and apply a series of modifications - orientation (top left is origin, desaturation, and color inversion. This resulting image will appear just above the classification).
-        guard let ciImage = CIImage(image: uiImage) else { return }
-        let correctedImage = ciImage
-            .oriented(forExifOrientation: 1)
-            .applyingFilter("CIColorControls", parameters: [
-                kCIInputSaturationKey: 0,
-                kCIInputContrastKey: 32
+        // Rectify the detected image and reduce it to inverted grayscale for applying model.
+        let topLeft = detectedRectangle.topLeft.scaled(to: imageSize)
+        let topRight = detectedRectangle.topRight.scaled(to: imageSize)
+        let bottomLeft = detectedRectangle.bottomLeft.scaled(to: imageSize)
+        let bottomRight = detectedRectangle.bottomRight.scaled(to: imageSize)
+        let correctedImage = inputImage
+            .cropped(to: boundingBox)
+            .applyingFilter("CIPerspectiveCorrection", parameters: [
+                "inputTopLeft": CIVector(cgPoint: topLeft),
+                "inputTopRight": CIVector(cgPoint: topRight),
+                "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+                "inputBottomRight": CIVector(cgPoint: bottomRight)
                 ])
-            .applyingFilter("CIColorInvert", parameters: [:])
+        .rotatingAroundCenter(by: .pi / 2)
         
-        DispatchQueue.main.async {
-            self.imageView.image = UIImage(ciImage: correctedImage)
-        }
-        
-        //Finally we'll create an image request handler wih our correct image, and attempt to perform the classification request instance variable.
-        let handler = VNImageRequestHandler(ciImage: correctedImage)
-        do {
-            //This classification request calls back to 'handleClassification' when complete
-            try handler.perform([emnistClassificationRequest])
-        } catch {
-            print(error)
-        }
-    }
-    
-    func handleClassification(request: VNRequest, error: Error?) {
-        
-        //Ensure that we have both ClassificationObservations and that have at least 1
-        guard let observations = request.results as? [VNClassificationObservation] else { fatalError("unexpected result type from VNCoreMLRequest") }
-        guard let best = observations.first else { fatalError("can't get best result") }
-        
-        DispatchQueue.main.async {
-                print(best.identifier)
-        }
+        return correctedImage
     }
 }
-
 //MARK: Helper
 fileprivate extension WordsViewController {
     
-    func glyphImages(for subfeatures: [CITextFeature], from image: CIImage) -> [UIImage] {
-        return subfeatures.map { feature in
-            return image.cropped(to: CGRect(origin: feature.bottomLeft, size: feature.bounds.size))
-                .transformed(by: CGAffineTransform(rotationAngle: .pi))
-            }.map { UIImage(ciImage: $0) }
+    func glyphImage(for observation: VNRectangleObservation, from inputImage: CIImage) -> CIImage {
+        
+        let boundingBox = observation.boundingBox.scaled(to: inputImage.extent.size)
+        
+        // Rectify the detected image and reduce it to inverted grayscale for applying model.
+        let topLeft = observation.topLeft.scaled(to: inputImage.extent.size)
+        let topRight = observation.topRight.scaled(to: inputImage.extent.size)
+        let bottomLeft = observation.bottomLeft.scaled(to: inputImage.extent.size)
+        let bottomRight = observation.bottomRight.scaled(to: inputImage.extent.size)
+        let correctedImage = inputImage
+            .cropped(to: boundingBox)
+            .applyingFilter("CIPerspectiveCorrection", parameters: [
+                "inputTopLeft": CIVector(cgPoint: topLeft),
+                "inputTopRight": CIVector(cgPoint: topRight),
+                "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+                "inputBottomRight": CIVector(cgPoint: bottomRight)
+                ])
+        
+        return correctedImage
     }
     
-    func drawHighlightOverlay(on image: CIImage, with color: UIColor,
-                              topLeft: CGPoint, topRight: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
-        var overlay = CIImage(color: CIColor(color: color.withAlphaComponent(0.5)))
-        overlay = overlay.cropped(to: image.extent)
-        overlay = overlay.applyingFilter("CIPerspectiveTransformWithExtent",
-                                         parameters: [
-                                            "inputExtent": CIVector(cgRect: image.extent),
-                                            "inputTopLeft": CIVector(cgPoint: topLeft),
-                                            "inputTopRight": CIVector(cgPoint: topRight),
-                                            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
-                                            "inputBottomRight": CIVector(cgPoint: bottomRight)])
-        return overlay.composited(over: image)
+
+    func glyphImages(for observations: [VNRectangleObservation], from image: CIImage) -> [CIImage] {
+        return observations.map {
+            let xCoord = $0.topLeft.x * image.extent.size.width
+            let yCoord = (1 - $0.topLeft.y) * image.extent.size.height
+            return image.cropped(to: CGRect(x: xCoord, y: yCoord,
+                                            width: image.extent.width * $0.boundingBox.width,
+                                            height: image.extent.height * $0.boundingBox.height))
+        }
     }
 }
 

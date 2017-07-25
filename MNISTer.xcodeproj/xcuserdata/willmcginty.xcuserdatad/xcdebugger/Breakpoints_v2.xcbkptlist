@@ -2,4 +2,70 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MNISTer/WordsViewController.swift"
+            timestampString = "522646765.824982"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "glyphImages(for:from:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MNISTer.WordsViewController.(glyphImages in _FC5AF03EDE8FC045CED51215AC3DFF5E)(for: Swift.Array&lt;__ObjC.VNRectangleObservation&gt;, from: __ObjC.CIImage) -&gt; Swift.Array&lt;__ObjC.CIImage&gt;"
+                  moduleName = "MNISTer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/willmcginty/Developer/Open%20Source/MNISTer/MNISTer/WordsViewController.swift"
+                  timestampString = "522645908.362934"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "158"
+                  endingLineNumber = "158"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__ObjC.VNRectangleObservation) -&gt; __ObjC.CIImage in MNISTer.WordsViewController.(glyphImages in _FC5AF03EDE8FC045CED51215AC3DFF5E)(for: Swift.Array&lt;__ObjC.VNRectangleObservation&gt;, from: __ObjC.CIImage) -&gt; Swift.Array&lt;__ObjC.CIImage&gt;"
+                  moduleName = "MNISTer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/willmcginty/Developer/Open%20Source/MNISTer/MNISTer/WordsViewController.swift"
+                  timestampString = "522645908.366163"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "159"
+                  endingLineNumber = "159"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MNISTer/WordsViewController.swift"
+            timestampString = "522646908.56715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "detectTextHandler(request:error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

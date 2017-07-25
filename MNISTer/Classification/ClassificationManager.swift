@@ -27,16 +27,9 @@ class ClassificationManager {
     }
     
     public typealias RequestCompletionHandler = (_ classifiedImage: CIImage, _ request: VNRequest, _ error: Error?) -> Void
-    public func prediction(from image: UIImage, completion: @escaping RequestCompletionHandler) throws {
+    public func prediction(from inputImage: CIImage, completion: @escaping RequestCompletionHandler) throws {
+        guard var correctedImage = inputImage.oriented(forExifOrientation: 1).resizedImage(with: inputRequirements.size) else { return }
         
-        //First we need to resize the image to the model's desired size
-        guard let resizedImage = image.resizedImage(with: inputRequirements.size) else { return }
-        
-        //Next, we create a CIImage and apply a series of modifications.
-        guard let inputImage = CIImage(image: resizedImage) else { return }
-        
-        var correctedImage = inputImage.oriented(forExifOrientation: 1)
-    
         if inputRequirements.grayscale {
             correctedImage = correctedImage.applyingFilter("CIColorControls", parameters: [kCIInputSaturationKey : 0, kCIInputContrastKey : 32])
         }
@@ -54,5 +47,13 @@ class ClassificationManager {
         } catch {
             throw error
         }
+    }
+    public func prediction(from image: UIImage, completion: @escaping RequestCompletionHandler) throws {
+        
+        //First we need to resize the image to the model's desired size and convert it to a CIImage
+        //guard let resizedImage = image.resizedImage(with: inputRequirements.size) else { return }
+        guard let inputImage = CIImage(image: image) else { return }
+        
+        try prediction(from: inputImage, completion: completion)
     }
 }
