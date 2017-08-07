@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MNISTer/WordsViewController.swift"
-            timestampString = "522646765.824982"
+            timestampString = "523682579.728346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "glyphImages(for:from:)"
-            landmarkType = "7">
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "WordsViewController"
+            landmarkType = "21">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MNISTer/WordsViewController.swift"
-            timestampString = "522646908.56715"
+            filePath = "MNISTerTests/MNISTerTests.swift"
+            timestampString = "523418830.454772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "detectTextHandler(request:error:)"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "testOrientation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
